@@ -8,29 +8,32 @@ var canvasElement = $("<canvas width='" + CANVAS_WIDTH +
 var canvas = canvasElement.get(0).getContext("2d");
 canvasElement.appendTo('body');
 
-var screenX = 0;
-var screenY = 0;
+var screenX = -CANVAS_WIDTH/2;
+var screenY = -CANVAS_HEIGHT/2;
 
 var tiles = [];
 
 var testCube = Object.create(cube);
 	testCube.width = 15;
 	testCube.height = 25;
-	testCube.x = CANVAS_WIDTH / 2;
-	testCube.y = CANVAS_HEIGHT / 2;
+	testCube.x = 0;
+	testCube.y = 0;
 	testCube.color = "#FF5577";
-
-var testSquare = Object.create(square);
-	testSquare.width = 60;
-	testSquare.length = 60;
-	testSquare.x = CANVAS_WIDTH / 2;
-	testSquare.y = CANVAS_HEIGHT / 2;
-	testSquare.color = "#FFFFFF";
 
 setInterval(function() {
 	update();
 	draw();
 }, 1000/FPS );
+
+function init() {
+
+	addSquare(0, 0, 60, 60, "#FFFFFF");
+	addSquare(60, 60, 60, 60, "#FFFFFF");
+	addSquare(-60, 60, 60, 60, "#FFFFFF");
+	addSquare(-60, -60, 60, 60, "#FFFFFF");
+	addSquare(60, -60, 60, 60, "#FFFFFF");
+
+}
 
 function update() {
 
@@ -45,9 +48,27 @@ function draw() {
 
 	canvas.fillStyle = "#FFFFFF";
 	canvas.font = "bold 24px Arial";
-	canvas.fillText("#Tight", 20, 40);
+	canvas.fillText("0x111111", 20, 40);
 
-	testSquare.draw()
+	for(i = 0; i < tiles.length; i++) {
+		tiles[i].draw();
+	}
+
 	testCube.draw();
 
 }
+
+function addSquare(x, y, width, length, color) {
+
+	var testSquare = Object.create(square);
+		testSquare.width = width;
+		testSquare.length = length;
+		testSquare.x = x;
+		testSquare.y = y;
+		testSquare.color = color;
+
+	tiles.push(testSquare);
+
+}
+
+init();
