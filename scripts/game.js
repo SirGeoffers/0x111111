@@ -27,7 +27,7 @@ setInterval(function() {
 function init() {
 
 	window.addEventListener('resize', resizeCanvas, false);
-	//resizeCanvas();
+	resizeCanvas();
 
 	addSquare(0, 0, 180, 180, "#FFFFFF");
 
