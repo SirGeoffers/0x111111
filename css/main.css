@@ -1,6 +1,7 @@
 /* to remove the top and left whitespace */
 * {  
 	margin:0; padding:0;
+	overflow: hidden;
 }
 
 /* just to be sure these are full screen*/

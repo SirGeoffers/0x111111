@@ -12,13 +12,12 @@ var screenX = -CANVAS_WIDTH/2;
 var screenY = -CANVAS_HEIGHT/2;
 
 var tiles = [];
-
-var testCube = Object.create(cube);
-	testCube.width = 15;
-	testCube.height = 25;
-	testCube.x = 0;
-	testCube.y = 0;
-	testCube.color = "#FF5577";
+var computer = Object.create(cube);
+	computer.width = 50;
+	computer.height = 50;
+	computer.x = 0;
+	computer.y = 0;
+	computer.color = "#FF5577"; //#FF5577
 
 setInterval(function() {
 	update();
@@ -27,11 +26,10 @@ setInterval(function() {
 
 function init() {
 
-	addSquare(0, 0, 60, 60, "#FFFFFF");
-	addSquare(60, 60, 60, 60, "#FFFFFF");
-	addSquare(-60, 60, 60, 60, "#FFFFFF");
-	addSquare(-60, -60, 60, 60, "#FFFFFF");
-	addSquare(60, -60, 60, 60, "#FFFFFF");
+	window.addEventListener('resize', resizeCanvas, false);
+	//resizeCanvas();
+
+	addSquare(0, 0, 180, 180, "#FFFFFF");
 
 }
 
@@ -41,20 +39,22 @@ function update() {
 
 function draw() {
 
-	canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+	canvas.clearRect(0, 0, canvas.width, canvas.height);
 
 	canvas.fillStyle = "#111111";
-	canvas.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+	canvas.fillRect(0, 0, canvas.width, canvas.height);
 
 	canvas.fillStyle = "#FFFFFF";
 	canvas.font = "bold 24px Arial";
 	canvas.fillText("0x111111", 20, 40);
+	canvas.fillText("Width: " + canvas.width, 20, 100);
+	canvas.fillText("Height: " + canvas.height, 20, 130);
 
 	for(i = 0; i < tiles.length; i++) {
 		tiles[i].draw();
 	}
 
-	testCube.draw();
+	computer.draw();
 
 }
 
@@ -69,6 +69,12 @@ function addSquare(x, y, width, length, color) {
 
 	tiles.push(testSquare);
 
+}
+
+function resizeCanvas() {
+	computer.color = "#000000";
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
 }
 
 init();
