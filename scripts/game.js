@@ -72,7 +72,6 @@ function addSquare(x, y, width, length, color) {
 }
 
 function resizeCanvas() {
-	computer.color = "#000000";
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 }
