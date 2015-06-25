@@ -20,7 +20,7 @@ function drawSquare(x, y, width, length, color) {
 
 }
 
-function drawCube(x, y, width, height, length, color) {
+function drawCube(x, y, z, width, height, length, color) {
 
 	var px = width * Math.cos(Math.PI / 6);
 	var py = width * Math.sin(Math.PI / 6);
@@ -29,33 +29,34 @@ function drawCube(x, y, width, height, length, color) {
 	var yi = x * sin30 - y * sin30 + py;
 
 	//Top
-	canvas.fillStyle = shadeColor(color, -25);
+	canvas.fillStyle = color;
 	canvas.beginPath();
-	canvas.moveTo(xi + px - screenX, yi - height - screenY);
-	canvas.lineTo(xi + px - screenX, yi - py - height - screenY);
-	canvas.lineTo(xi - screenX, yi - height - py * 2 - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - height - screenY);
-	canvas.lineTo(xi - px - screenX, yi - height - screenY);
+	canvas.moveTo(xi + px - screenX, yi - py - height / 2 - z - screenY);
+	canvas.lineTo(xi + px - screenX, yi - py - height - z - screenY);
+	canvas.lineTo(xi - screenX, yi - height - py * 2 - z - screenY);
+	canvas.lineTo(xi - px - screenX, yi - py - height - z - screenY);
+	canvas.lineTo(xi - px - screenX, yi - py - height / 2 - z - screenY);
+	canvas.lineTo(xi - screenX, yi - height / 2 - z - screenY);
 	canvas.closePath();
 	canvas.fill();
 
 	//Right
-	canvas.fillStyle = shadeColor(color, -50);
+	canvas.fillStyle = shadeColor(color, -40);
 	canvas.beginPath();
-	canvas.moveTo(xi - screenX, yi - screenY);
-	canvas.lineTo(xi + px - screenX, yi - py - screenY);
-	canvas.lineTo(xi + px - screenX, yi - py - height - screenY);
-	canvas.lineTo(xi - screenX, yi - height - screenY);
+	canvas.moveTo(xi - screenX, yi - z - screenY);
+	canvas.lineTo(xi + px - screenX, yi - py - z - screenY);
+	canvas.lineTo(xi + px - screenX, yi - py - height - z - screenY);
+	canvas.lineTo(xi - screenX, yi - height - z - screenY);
 	canvas.closePath();
 	canvas.fill();
 
 	//Left
-	canvas.fillStyle = color;
+	canvas.fillStyle = shadeColor(color, -25);
 	canvas.beginPath();
-	canvas.moveTo(xi - screenX, yi - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - height - screenY);
-	canvas.lineTo(xi - screenX, yi - height - screenY);
+	canvas.moveTo(xi - screenX, yi - z - screenY);
+	canvas.lineTo(xi - px - screenX, yi - py - z - screenY);
+	canvas.lineTo(xi - px - screenX, yi - py - height - z - screenY);
+	canvas.lineTo(xi - screenX, yi - height - z - screenY);
 	canvas.closePath();
 	canvas.fill();
 
