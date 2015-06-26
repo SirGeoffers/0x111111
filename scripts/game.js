@@ -7,10 +7,11 @@ canvasElement.appendTo('body');
 var screenX = -window.innerWidth/2;
 var screenY = -window.innerHeight/2;
 
-var TILE_SIZE = 60;
+var TILE_SIZE = 70;
 var TILE_HEIGHT = 10;
 var tiles = [];
-var turtle
+var turtle;
+var wall;
 
 function init() {
 
@@ -18,10 +19,11 @@ function init() {
 	resizeCanvas();
 
 	turtle = Object.create(turtleObj);
+	wall = Object.create(wallObj);
 
-	var startPos = 60 * 5;
-	for (i = 0; i < 10; i++) {
-		for (j = 0; j < 10; j++) {
+	var startPos = TILE_SIZE * 4.5;
+	for (i = 0; i < 9; i++) {
+		for (j = 0; j < 9; j++) {
 			addCube(-startPos + TILE_SIZE * i, startPos - TILE_SIZE * j, TILE_SIZE - 2, TILE_SIZE - 2, TILE_HEIGHT, "#EEEEEE");
 		}
 	}
@@ -55,12 +57,13 @@ function draw() {
 	}
 
 	turtle.draw();
+	//wall.draw();
 
 }
 
 function addSquare(x, y, width, length, color) {
 
-	var sq = Object.create(square);
+	var sq = Object.create(squareObj);
 		sq.width = width;
 		sq.length = length;
 		sq.x = x;
@@ -73,7 +76,7 @@ function addSquare(x, y, width, length, color) {
 
 function addCube(x, y, width, length, height, color) {
 
-	var cu = Object.create(cube);
+	var cu = Object.create(cubeObj);
 		cu.width = width;
 		cu.length = length;
 		cu.height = height;

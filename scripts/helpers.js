@@ -1,20 +1,39 @@
 var cos30 = Math.cos(Math.PI / 6);
 var sin30 = Math.sin(Math.PI / 6);
 
-function drawSquare(x, y, width, length, color) {
+function drawFlatSquare(x, y, width, height, color) {
 
-	var px = width * cos30;
-	var py = length * sin30;
-
-	var xi = x * cos30 + y * cos30;
-	var yi = x * sin30 - y * sin30 + py;
+	var w = width / 2;
+	var h = height / 2;
 
 	canvas.fillStyle = color;
 	canvas.beginPath();
-	canvas.moveTo(xi - screenX, yi - screenY);
-	canvas.lineTo(xi + px - screenX, yi - py - screenY);
-	canvas.lineTo(xi - screenX, yi - py * 2 - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - screenY);
+	canvas.moveTo(x + w - screenX, y + h - screenY); //bottom right
+	canvas.lineTo(x + w - screenX, y - h - screenY); //bottom left
+	canvas.lineTo(x - w - screenX, y - h - screenY); //top left
+	canvas.lineTo(x - w - screenX, y + h - screenY); //top right
+	canvas.closePath();
+	canvas.fill();
+
+}
+
+function drawSquare(x, y, z, width, length, color) {
+
+	var pwx = width * cos30 / 2;
+	var pwy = width * sin30 / 2;
+
+	var plx = length * cos30 / 2;
+	var ply = length * sin30 / 2;
+
+	var xi = x * cos30 + y * cos30;
+	var yi = x * sin30 - y * sin30;
+
+	canvas.fillStyle = color;
+	canvas.beginPath();
+	canvas.moveTo(xi + pwx - plx - screenX, yi + pwy + ply - z - screenY); //bottom right - base
+	canvas.lineTo(xi - pwx - plx - screenX, yi - pwy + ply - z - screenY); //bottom left - base
+	canvas.lineTo(xi - pwx + plx - screenX, yi - pwy - ply - z - screenY); //top left - base
+	canvas.lineTo(xi + pwx + plx - screenX, yi + pwy - ply - z - screenY); //top right - base
 	canvas.closePath();
 	canvas.fill();
 
@@ -22,45 +41,50 @@ function drawSquare(x, y, width, length, color) {
 
 function drawCube(x, y, z, width, height, length, color) {
 
-	var px = width * Math.cos(Math.PI / 6);
-	var py = width * Math.sin(Math.PI / 6);
+	var pwx = width * cos30 / 2;
+	var pwy = width * sin30 / 2;
+
+	var plx = length * cos30 / 2;
+	var ply = length * sin30 / 2;
 
 	var xi = x * cos30 + y * cos30;
-	var yi = x * sin30 - y * sin30 + py;
+	var yi = x * sin30 - y * sin30;
 
 	//Top
 	canvas.fillStyle = color;
 	canvas.beginPath();
-	canvas.moveTo(xi + px - screenX, yi - py - height / 2 - z - screenY);
-	canvas.lineTo(xi + px - screenX, yi - py - height - z - screenY);
-	canvas.lineTo(xi - screenX, yi - height - py * 2 - z - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - height - z - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - height / 2 - z - screenY);
-	canvas.lineTo(xi - screenX, yi - height / 2 - z - screenY);
+	canvas.moveTo(xi + pwx - plx - screenX, yi + pwy + ply - z - screenY); //bottom right - base
+	canvas.lineTo(xi - pwx - plx - screenX, yi - pwy + ply - z - screenY); //bottom left - base
+	canvas.lineTo(xi - pwx - plx - screenX, yi - pwy + ply - z - height - screenY); //bottom left
+	canvas.lineTo(xi - pwx + plx - screenX, yi - pwy - ply - z - height - screenY); //top left
+	canvas.lineTo(xi + pwx + plx - screenX, yi + pwy - ply - z - height - screenY); //top right
+	canvas.lineTo(xi + pwx + plx - screenX, yi + pwy - ply - z - screenY); //top right - base
 	canvas.closePath();
 	canvas.fill();
 
 	//Right
 	canvas.fillStyle = shadeColor(color, -40);
 	canvas.beginPath();
-	canvas.moveTo(xi - screenX, yi - z - screenY);
-	canvas.lineTo(xi + px - screenX, yi - py - z - screenY);
-	canvas.lineTo(xi + px - screenX, yi - py - height - z - screenY);
-	canvas.lineTo(xi - screenX, yi - height - z - screenY);
+	canvas.moveTo(xi + pwx - plx - screenX, yi + pwy + ply - z - height - screenY);
+	canvas.lineTo(xi + pwx + plx - screenX, yi + pwy - ply - z - height - screenY);
+	canvas.lineTo(xi + pwx + plx - screenX, yi + pwy - ply - z - screenY);
+	canvas.lineTo(xi + pwx - plx - screenX, yi + pwy + ply - z - screenY);
 	canvas.closePath();
 	canvas.fill();
 
 	//Left
 	canvas.fillStyle = shadeColor(color, -25);
 	canvas.beginPath();
-	canvas.moveTo(xi - screenX, yi - z - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - z - screenY);
-	canvas.lineTo(xi - px - screenX, yi - py - height - z - screenY);
-	canvas.lineTo(xi - screenX, yi - height - z - screenY);
+	canvas.moveTo(xi + pwx - plx - screenX, yi + pwy + ply - z - height - screenY);
+	canvas.lineTo(xi - pwx - plx - screenX, yi - pwy + ply - z - height - screenY);
+	canvas.lineTo(xi - pwx - plx - screenX, yi - pwy + ply - z - screenY);
+	canvas.lineTo(xi + pwx - plx - screenX, yi + pwy + ply - z - screenY);
 	canvas.closePath();
 	canvas.fill();
 
 }
+
+drawFlatSquare
 
 function shadeColor(color, percent) {  
     var num = parseInt(color.slice(1),16), amt = Math.round(2.55 * percent), R = (num >> 16) + amt, G = (num >> 8 & 0x00FF) + amt, B = (num & 0x0000FF) + amt;
