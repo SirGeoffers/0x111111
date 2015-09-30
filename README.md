@@ -1,3 +1,3 @@
 # 0x111111
 
-TODO
+Small web project to introduce myself to HTML5 and JavaScript
